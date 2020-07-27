@@ -29,7 +29,17 @@ void PImageHeaderWriter(PIMAGE_DOS_HEADER PImageHeader) {
 	cout << endl << endl << endl;
 }
 
-
+void ImageFileHeaderWriter(IMAGE_FILE_HEADER ImageFileHeader) {
+	cout << endl << "______PIMAGE_FILE_HEADER______" << endl;
+	cout << "Characteristics : " << hex << ImageFileHeader.Characteristics << endl;
+	cout << "NumberOfSections : " << hex << ImageFileHeader.NumberOfSections << endl;
+	cout << "TimeDateStamp : " << hex << ImageFileHeader.TimeDateStamp << endl;
+	cout << "PointerToSymbolTable : " << hex << ImageFileHeader.PointerToSymbolTable << endl;
+	cout << "NumberOfSymbols : " << hex << ImageFileHeader.NumberOfSymbols << endl;
+	cout << "SizeOfOptionalHeader : " << hex << ImageFileHeader.SizeOfOptionalHeader << endl;
+	cout << "Characteristics : " << hex << ImageFileHeader.Characteristics << endl;
+	cout << endl << endl << endl;
+}
 
 int main(int argc, char* argv[])
 {
@@ -69,6 +79,14 @@ int main(int argc, char* argv[])
 	
 	PIMAGE_DOS_HEADER PImageHeader = (PIMAGE_DOS_HEADER)fileData;
 	PImageHeaderWriter(PImageHeader);
+
+	PIMAGE_NT_HEADERS32 ntheader = (PIMAGE_NT_HEADERS32)(PImageHeader->e_lfanew + (LONG)fileData);
+	cout << endl << "______PE_SIGNATURE______" << endl;
+	cout << "PE SIGNATURE : " << hex << ntheader->Signature;
+	cout << endl << endl;
+
+	IMAGE_FILE_HEADER imageFileHeader = (IMAGE_FILE_HEADER )ntheader->FileHeader;
+	ImageFileHeaderWriter(imageFileHeader);
 
 	return 0;
 }

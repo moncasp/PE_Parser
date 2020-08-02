@@ -1,6 +1,7 @@
 #include <iostream>
 #include<Windows.h>
 #include<locale.h>
+#include <iomanip>
 using namespace std;
 
 
@@ -40,6 +41,55 @@ void ImageFileHeaderWriter(IMAGE_FILE_HEADER ImageFileHeader) {
 	cout << "Characteristics : " << hex << ImageFileHeader.Characteristics << endl;
 	cout << endl << endl << endl;
 }
+
+
+void optionalHeaderWriter(IMAGE_OPTIONAL_HEADER optionalHeader) {
+	cout << endl << "______PIMAGE_OPTIONAL_HEADER______" << endl;
+	cout << "Magic : " << hex << optionalHeader.Magic << endl;
+	cout << "MajorLinkerVersion : " << hex << setw(2) << setfill('0') << (int)optionalHeader.MajorLinkerVersion << endl;
+	cout << "MinorLinkerVersion : " << hex << setw(2) << setfill('0') << (int)optionalHeader.MinorLinkerVersion << endl;
+	cout << "SizeOfCode : " << hex << optionalHeader.SizeOfCode << endl;
+	cout << "SizeOfInitializedData : " << hex << optionalHeader.SizeOfInitializedData << endl;
+	cout << "SizeOfUninitializedData : " << hex << optionalHeader.SizeOfUninitializedData << endl;
+	cout << "AddressOfEntryPoint : " << hex << optionalHeader.AddressOfEntryPoint << endl;
+	cout << "BaseOfCode : " << hex << optionalHeader.BaseOfCode << endl;
+	cout << "BaseOfData : " << hex << optionalHeader.BaseOfData << endl;
+	cout << "--------------------------------" << endl;
+	cout << "ImageBase : " << hex << optionalHeader.ImageBase << endl;
+	cout << "SectionAlignment : " << hex << optionalHeader.SectionAlignment << endl;
+	cout << "MajorOperatingSystemVersion : " << hex << optionalHeader.MajorOperatingSystemVersion << endl;
+	cout << "MinorOperatingSystemVersion : " << hex << optionalHeader.MinorOperatingSystemVersion << endl;
+	cout << "MajorImageVersion : " << hex << optionalHeader.MajorImageVersion << endl;
+	cout << "MinorImageVersion : " << hex << optionalHeader.MinorImageVersion << endl;
+	cout << "MajorSubsystemVersion : " << hex << optionalHeader.MajorSubsystemVersion << endl;
+	cout << "MinorSubsystemVersion : " << hex << optionalHeader.MinorSubsystemVersion << endl;
+	cout << "Win32VersionValue : " << hex << optionalHeader.Win32VersionValue << endl;
+	cout << "SizeOfImage : " << hex << optionalHeader.SizeOfImage << endl;
+	cout << "SizeOfHeaders : " << hex << optionalHeader.SizeOfHeaders << endl;
+	cout << "CheckSum : " << hex << optionalHeader.CheckSum << endl;
+	cout << "Subsystem : " << hex << optionalHeader.Subsystem << endl;
+	cout << "DllCharacteristics : " << hex << optionalHeader.DllCharacteristics << endl;
+	cout << "SizeOfStackReserve : " << hex << optionalHeader.SizeOfStackReserve << endl;
+	cout << "SizeOfStackCommit : " << hex << optionalHeader.SizeOfStackCommit << endl;
+	cout << "SizeOfHeapReserve : " << hex << optionalHeader.SizeOfHeapReserve << endl;
+	cout << "SizeOfHeapCommit : " << hex << optionalHeader.SizeOfHeapCommit << endl;
+	cout << "LoaderFlags : " << hex << optionalHeader.LoaderFlags << endl;
+	cout << "NumberOfRvaAndSizes : " << hex << optionalHeader.NumberOfRvaAndSizes << endl;
+	cout << "--------------------------------" << endl;
+	for (int i = 0; i < IMAGE_NUMBEROF_DIRECTORY_ENTRIES; i++) {
+		IMAGE_DATA_DIRECTORY dataDirectory = (IMAGE_DATA_DIRECTORY)optionalHeader.DataDirectory[i];
+		int size = dataDirectory.Size;
+		if (size != 0) {
+			cout << "-------" << i << "------------" << endl;
+			cout << "VirtualAddress : " << hex << dataDirectory.VirtualAddress << endl;
+			cout << "Size : " << hex << dataDirectory.Size << endl << endl;
+		}
+	}
+	cout << endl << endl << endl;
+}
+
+
+
 
 int main(int argc, char* argv[])
 {
@@ -87,6 +137,9 @@ int main(int argc, char* argv[])
 
 	IMAGE_FILE_HEADER imageFileHeader = (IMAGE_FILE_HEADER )ntheader->FileHeader;
 	ImageFileHeaderWriter(imageFileHeader);
+
+	IMAGE_OPTIONAL_HEADER optionalHeader = (IMAGE_OPTIONAL_HEADER)ntheader->OptionalHeader;
+	optionalHeaderWriter(optionalHeader);
 
 	return 0;
 }

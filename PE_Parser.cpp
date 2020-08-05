@@ -88,7 +88,20 @@ void optionalHeaderWriter(IMAGE_OPTIONAL_HEADER optionalHeader) {
 	cout << endl << endl << endl;
 }
 
-
+void sectionHeaderWriter(PIMAGE_SECTION_HEADER sectionHeader) {
+	cout << "Name : " << hex << sectionHeader->Name << endl;
+	cout << "Misc PhysicalAddress : " << hex << sectionHeader->Misc.PhysicalAddress << endl;
+	cout << "Misc VirtualSize : " << hex << sectionHeader->Misc.VirtualSize << endl;
+	cout << "VirtualAddress : " << hex << sectionHeader->VirtualAddress << endl;
+	cout << "SizeOfRawData : " << hex << sectionHeader->SizeOfRawData << endl;
+	cout << "PointerToRawData : " << hex << sectionHeader->PointerToRawData << endl;
+	cout << "PointerToRelocations : " << hex << sectionHeader->PointerToRelocations << endl;
+	cout << "PointerToLinenumbers : " << hex << sectionHeader->PointerToLinenumbers << endl;
+	cout << "NumberOfRelocations : " << hex << sectionHeader->NumberOfRelocations << endl;
+	cout << "NumberOfLinenumbers : " << hex << sectionHeader->NumberOfLinenumbers << endl;
+	cout << "Characteristics : " << hex << sectionHeader->Characteristics << endl;
+	cout << endl << endl << endl;
+}
 
 
 int main(int argc, char* argv[])
@@ -140,6 +153,16 @@ int main(int argc, char* argv[])
 
 	IMAGE_OPTIONAL_HEADER optionalHeader = (IMAGE_OPTIONAL_HEADER)ntheader->OptionalHeader;
 	optionalHeaderWriter(optionalHeader);
+
+	DWORD sectionPoint = (DWORD)ntheader + sizeof(DWORD) + (DWORD)sizeof(IMAGE_FILE_HEADER) + (DWORD)imageFileHeader.SizeOfOptionalHeader;
+	
+
+	cout << endl << "______PIMAGE_SECTION_HEADER______" << endl;
+	for (int i = 0; i < imageFileHeader.NumberOfSections; i++) {
+		PIMAGE_SECTION_HEADER sectionHeader = (PIMAGE_SECTION_HEADER)sectionPoint;
+		sectionHeaderWriter(sectionHeader);
+		sectionPoint += (DWORD)sizeof(IMAGE_SECTION_HEADER);
+	}
 
 	return 0;
 }

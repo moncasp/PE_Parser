@@ -7,15 +7,16 @@ PE_dosyalarının yapısını anlamak ve içerisindeki bilgileri dışarı çık
 
 muraterdem.org 
 
-https://www.muraterdem.org/pe1/ 
+https://www.muraterdem.org/pe1/  
 https://www.muraterdem.org/pe2/  
-https://www.muraterdem.org/p3/
-https://www.muraterdem.org/pe4/
-https://www.muraterdem.org/pe5/
+https://www.muraterdem.org/p3/  
+https://www.muraterdem.org/pe4/  
+https://www.muraterdem.org/pe5/  
+https://www.muraterdem.org/pe6/  
 
 sibervatan.org 
 
 https://www.sibervatan.org/makale/pe-dosyalari-0x01/43  
-https://www.sibervatan.org/makale/pe-dosyalari-0x02/44
-https://www.sibervatan.org/makale/pe-dosyalari-0x03/46 
+https://www.sibervatan.org/makale/pe-dosyalari-0x02/44  
+https://www.sibervatan.org/makale/pe-dosyalari-0x03/46   
 
